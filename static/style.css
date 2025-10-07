@@ -1,0 +1,366 @@
+/* --- 1. GENERAL SETUP & FONTS --- */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+
+body {
+  background-color: #f8fafc;
+  background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+    linear-gradient(to bottom, #e2e8f0 1px, transparent 1px),
+    radial-gradient(circle at 1% 1%, rgba(129, 140, 248, 0.15), transparent 30%),
+    radial-gradient(
+      circle at 99% 99%,
+      rgba(99, 102, 241, 0.15),
+      transparent 40%
+    );
+  background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
+  color: #334155;
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat", "Times New Roman", Times, serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* --- 2. KEYFRAME ANIMATIONS --- */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- 3. LAYOUT & TYPOGRAPHY --- */
+header {
+  padding: 60px 20px 40px;
+  text-align: center;
+}
+main {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  padding: 20px;
+}
+footer {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.main-title {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeInDown 0.8s ease-out;
+  background: linear-gradient(135deg, #4f46e5, #a855f7);
+  background-clip: text;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  animation: fadeInUp 0.8s ease-out 0.3s backwards;
+  color: #64748b;
+  font-size: 1.2rem;
+  margin: 0.5rem auto 0;
+  max-width: 550px;
+}
+
+/* --- 4. UI STATES (UPLOADER, PROCESSING, RESULTS) --- */
+.hidden {
+  display: none !important;
+}
+
+/* Uploader State */
+.uploader {
+  align-items: center;
+  animation: fadeInUp 1s ease-out 0.6s backwards;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px dashed #cbd5e1;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column; /* Changed to column */
+  justify-content: center;
+  max-width: 500px;
+  min-height: 300px;
+  padding: 40px;
+  position: relative;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 100%;
+}
+.uploader.dragover {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+  transform: scale(1.02);
+}
+.uploader.dragover .icon-bg {
+  animation: pulse 1.5s infinite;
+}
+.uploader .upload-text {
+  color: #1e293b;
+  font-size: 1.3rem;
+  margin: 1rem 0 0.25rem;
+}
+.uploader .file-types {
+  color: #64748b;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+.uploader .icon-bg {
+  align-items: center;
+  background: linear-gradient(135deg, #e0e7ff, #f3e8ff);
+  border-radius: 50%;
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  width: 80px;
+}
+.uploader .fa-image {
+  color: #4f46e5;
+  font-size: 32px;
+}
+
+/* Processing State */
+.processing-state {
+  animation: fadeInUp 1s ease-out;
+  text-align: center;
+}
+.processing-state p {
+  color: #475569;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.spinner {
+  animation: rotation 1s linear infinite;
+  border: 5px solid #e0e7ff;
+  border-bottom-color: #4f46e5;
+  border-radius: 50%;
+  display: inline-block;
+  height: 56px;
+  margin-bottom: 1rem;
+  width: 56px;
+}
+
+/* Results State */
+.results-state {
+  animation: fadeInUp 1s ease-out;
+  max-width: 900px;
+  width: 100%;
+}
+.results-container {
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+.image-wrapper {
+  align-items: center; /* Center image */
+  background-color: #f1f5f9;
+  border-radius: 16px;
+  display: flex; /* Center image */
+  flex-shrink: 0;
+  justify-content: center; /* Center image */
+  position: relative;
+}
+#resultImage {
+  border-radius: 8px;
+  display: block;
+  height: auto;
+  max-height: 700px; /* Increased height for contract */
+  max-width: 500px;
+  width: 100%;
+}
+
+.results-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.results-summary h2 {
+  color: #1e293b;
+  font-size: 2rem;
+  margin-top: 0;
+}
+#resultMessage {
+  border-left: 3px solid #a855f7;
+  color: #475569;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+}
+
+/* --- 5. COMPONENTS (BUTTONS) --- */
+.btn {
+  background: #4f46e5;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+  color: white;
+  cursor: pointer;
+  display: inline-block; /* For proper spacing */
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none; /* For <a> tags */
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  background: #4338ca;
+  box-shadow: 0 7px 20px rgba(79, 70, 229, 0.3);
+  transform: translateY(-3px);
+}
+.btn:active {
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+  transform: translateY(-1px);
+}
+.btn .fa-solid {
+  margin-right: 8px;
+}
+
+#downloadBtn {
+  background-color: #10b981; /* Green color */
+  margin-bottom: 1rem;
+}
+#downloadBtn:hover {
+  background-color: #059669;
+}
+
+#resetBtn {
+  background-color: #64748b;
+}
+#resetBtn:hover {
+  background-color: #e2dd32;
+}
+
+/* --- 6. RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2.2rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+  .results-container {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  #resultImage {
+    max-height: none;
+    max-width: 100%;
+  }
+  .results-summary {
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+}
+
+/* --- 7. PREVIEW STATE --- */
+.preview-state {
+  animation: fadeInUp 1s ease-out;
+  max-width: 900px;
+  width: 100%;
+}
+.preview-container {
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+#previewImage {
+  border-radius: 8px;
+  display: block;
+  height: auto;
+  max-height: 400px;
+  max-width: 400px;
+  object-fit: cover;
+  width: 100%;
+}
+.preview-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.preview-actions h2 {
+  color: #1e293b;
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+.preview-actions p {
+  color: #475569;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.button-group {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+  gap: 1rem;
+}
+.btn-secondary {
+  background-color: #64748b;
+}
+.btn-secondary:hover {
+  background-color: #ed2929;
+}
+
+/* Responsive adjustments for preview */
+@media (max-width: 768px) {
+  .preview-container {
+    align-items: center;
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  #previewImage {
+    max-height: 300px;
+    max-width: 100%;
+  }
+  .preview-actions {
+    align-items: center;
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+}

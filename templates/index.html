@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tạo Hợp Đồng Tự Động</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+
+    <!-- Custom Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1 class="main-title">Tạo Hợp Đồng Tự Động</h1>
+      <p class="subtitle">
+        Tải lên ảnh CCCD của bạn để tự động trích xuất thông tin và điền vào mẫu
+        hợp đồng.
+      </p>
+    </header>
+
+    <main>
+      <!-- STATE 1: UPLOADER (Hiển thị mặc định) -->
+      <section class="uploader" id="dropzone">
+        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png" hidden />
+        <div class="placeholder" id="placeholder">
+          <div class="image-icon-wrapper">
+            <div class="icon-bg">
+              <i class="fa-regular fa-image" aria-hidden="true"></i>
+            </div>
+          </div>
+          <p class="upload-text">
+            <strong>Kéo và thả ảnh CCCD vào đây</strong>
+          </p>
+          <p class="file-types">Hỗ trợ: PNG, JPG, JPEG</p>
+          <button type="button" class="btn" id="selectBtn">
+            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>Chọn tệp
+          </button>
+        </div>
+      </section>
+
+      <!-- STATE 2: PREVIEW (Ẩn mặc định) -->
+      <section class="preview-state hidden" id="previewState">
+        <div class="preview-container">
+          <figure class="image-wrapper">
+            <img
+              id="previewImage"
+              src=""
+              alt="Bản xem trước của ảnh CCCD đã chọn"
+            />
+            <figcaption hidden>Ảnh CCCD xem trước</figcaption>
+          </figure>
+          <div class="preview-actions">
+            <h2>Xác nhận ảnh</h2>
+            <p>Đây có phải ảnh bạn muốn sử dụng không?</p>
+            <div class="button-group">
+              <button type="button" class="btn" id="createContractBtn">
+                <i class="fa-solid fa-file-signature" aria-hidden="true"></i>Tạo
+                hợp đồng
+              </button>
+              <button type="button" class="btn btn-secondary" id="cancelBtn">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>Chọn ảnh
+                khác
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATE 3: PROCESSING (Ẩn mặc định) -->
+      <section class="processing-state hidden" id="processingState">
+        <div class="spinner" role="status" aria-label="Đang xử lý"></div>
+        <p>Đang phân tích ảnh và tạo hợp đồng...</p>
+      </section>
+
+      <!-- STATE 4: RESULTS (Ẩn mặc định) -->
+      <section class="results-state hidden" id="resultsState">
+        <div class="results-container">
+          <figure class="image-wrapper">
+            <img id="resultImage" src="" alt="Hình ảnh hợp đồng đã được tạo" />
+            <figcaption hidden>Hợp đồng đã tạo</figcaption>
+          </figure>
+          <div class="results-summary">
+            <h2 id="resultsTitle">Hoàn thành!</h2>
+            <p id="resultMessage">Hợp đồng của bạn đã được tạo thành công.</p>
+            <a href="#" class="btn" id="downloadBtn" download>
+              <i class="fa-solid fa-download" aria-hidden="true"></i>Tải xuống
+              Hợp đồng
+            </a>
+            <button type="button" class="btn" id="resetBtn">
+              <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>Tạo hợp
+              đồng khác
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 - AI Contract Generator.</p>
+    </footer>
+
+    <!-- Custom Script -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
